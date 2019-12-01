@@ -23,7 +23,7 @@ export class ShoppingListComponent implements OnInit {
       (newIngredients: Ingredient[]) => {
         this.ingredients = newIngredients;
       }
-    )
+    );
   }
 
   // onIngredientAdded(ingredientData: Ingredient){
