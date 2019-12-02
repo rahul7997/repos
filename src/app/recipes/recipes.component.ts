@@ -1,24 +1,45 @@
-import { Component, OnInit } from '@angular/core';
-import { RecipeService } from './recipe.service';
-import { Recipe } from './recipe.model';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { interval, Observable, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-recipes',
   templateUrl: './recipes.component.html',
-  styleUrls: ['./recipes.component.css'],
-  providers: [RecipeService]
+  styleUrls: ['./recipes.component.css']
 })
-export class RecipesComponent implements OnInit {
-  selectedRecipe: Recipe;
+export class RecipesComponent implements OnInit, OnDestroy {
+  private firstObsSubscription: Subscription;
 
-  constructor(private recipeService: RecipeService) { }
+  constructor() { }
 
   ngOnInit() {
-    this.recipeService.recipeSelected.subscribe(
-      (recipe: Recipe) => {
-        this.selectedRecipe = recipe;
-      }
-    )
+
+    const customIntervalObservable = Observable.create(observer => {
+      let count = 0;
+        setInterval(()=>{
+          observer.next(count);
+          if(count === 2){
+            observer.complete();
+          }
+          if(count>3){
+            observer.error(new Error('Count is greater than 3'));
+          }
+          count++;
+        }, 1000);
+    });
+
+    this.firstObsSubscription = customIntervalObservable.subscribe(data => {
+      console.log(data);
+    }, error => {
+        console.log(error);
+        alert(error.message);
+    }, ()=>{
+      console.log('Completed!');
+    });
+    
   }
 
+  ngOnDestroy(){
+    this.firstObsSubscription.unsubscribe();
+  }
+  
 }
