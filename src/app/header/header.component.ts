@@ -10,7 +10,9 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class HeaderComponent implements OnInit {
   loginlogout: string = 'Login';
 
-  constructor(private authService: AuthService, private router: Router, private route: ActivatedRoute) { }
+  constructor(private authService: AuthService, private router: Router, private route: ActivatedRoute) { 
+    this.isLoggedIn();
+  }
 
   ngOnInit() {
   }
@@ -24,6 +26,17 @@ export class HeaderComponent implements OnInit {
       this.authService.logout();
       this.loginlogout = 'Login';
     }
+    this.isLoggedIn();
+  }
+
+  isLoggedIn(){
+    this.authService.isAuthenticated().then((res)=>{
+      if(res){
+        this.loginlogout = 'Logout';
+      } else {
+        this.loginlogout = 'Login';
+      }
+    });
   }
 
 }
