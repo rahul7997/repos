@@ -17,7 +17,7 @@ export class RecipeService{
               [
                 new Ingredient('Burger',2),
                 new Ingredient('French Fries', 4)
-            ]),
+              ]),
         new Recipe('A Test Recipe2',
                  'This is a test2',
                   'https://upload.wikimedia.org/wikipedia/commons/1/15/Recipe_logo.jpeg',
@@ -29,6 +29,11 @@ export class RecipeService{
 
       getRecipes(){
           return this.recipes.slice();
+      }                
+      
+      setRecipes(recipes: Recipe[]){
+        this.recipes = recipes;
+        this.recipesChanged.next(recipes.slice());
       }
 
       addIngredientsToShoppingList(ingredients: Ingredient[]){

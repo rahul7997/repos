@@ -10,10 +10,10 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown" appDropdown>
-                    <button style="cursor: pointer;" class="dropdown-toggle" role="button">Manage<span class="caret"></span></button>
+                    <button style="cursor: pointer;" class="dropdown-toggle btn" role="button">Manage<span class="caret"></span></button>
                     <ul class="dropdown-menu">
-                        <li><a style="cursor: pointer;">Save Data</a></li>
-                        <li><a style="cursor: pointer;">Fetch Data</a></li>
+                        <li><a style="cursor: pointer;" (click)="onSaveData()">Save Data</a></li>
+                        <li><a style="cursor: pointer;" (click)="onFetchData()">Fetch Data</a></li>
                     </ul>
                 </li>
                 <li><button class="btn btn-primary" style="margin-left: 20px;" (click)="onLoginLogout()">{{loginlogout}}</button></li>

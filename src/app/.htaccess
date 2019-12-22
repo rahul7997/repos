@@ -1,0 +1,17 @@
+Access-Control-Allow-Origin: http://xyzcom
+Access-Control-Allow-Credentials: true
+Access-Control-Expose-Headers: FooBar
+Content-Type: text/html; charset=utf-8
+
+$.ajax({
+            headers: { "Accept": "application/json"},
+            type: 'GET',
+            url: 'http://cl.ly/2wr4',
+            crossDomain: true,
+            beforeSend: function(xhr){
+                xhr.withCredentials = true;
+          },
+            success: function(data, textStatus, request){
+                console.log(data);
+            }
+ });

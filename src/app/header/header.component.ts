@@ -1,6 +1,7 @@
 import { Component, OnInit} from '@angular/core';
 import { AuthService } from '../auth.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { DataStorageService } from '../shared/data-storage.service';
 
 @Component({
   selector: 'app-header',
@@ -10,7 +11,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class HeaderComponent implements OnInit {
   loginlogout: string = 'Login';
 
-  constructor(private authService: AuthService, private router: Router, private route: ActivatedRoute) { 
+  constructor(private authService: AuthService, private router: Router, private route: ActivatedRoute, private dataStorageService: DataStorageService) { 
     this.isLoggedIn();
   }
 
@@ -37,6 +38,14 @@ export class HeaderComponent implements OnInit {
         this.loginlogout = 'Login';
       }
     });
+  }
+
+  onSaveData(){
+    this.dataStorageService.storeRecipes();
+  }
+
+  onFetchData(){
+    this.dataStorageService.fetchRecipes();
   }
 
 }
